@@ -19,10 +19,10 @@ Here are the high level steps:
 
 #>
 
-#Provide the subscription Id where snapshot is created
+#Provide the subscription Id
 $subscriptionId = '<Your SubscriptionId>'
 
-#Provide the name of your resource group where snapshot is created
+#Provide the name of your resource group
 $resourceGroupName ='<Your Resource Group Name>'
 
 #Provide the URI of the VHD file that will be used to create image in the target subscription. 
@@ -40,8 +40,10 @@ $diskName = '<Disk Name>'
 #Provide the size of the disks in GB. It should be greater than the VHD file size.
 $diskSize = '<Disk Size>'
 
-#Provide the Azure region (e.g. westus) where Image will be located. 
-#The region should be same as the region of the storage account where VHD file is stored.
+#Provide the Azure location (e.g. westus) where Image will be located. 
+#The location should be same as the location of the storage account where VHD file is stored.
+#Get all the Azure location using command below:
+#Get-AzureRmLocation
 $imageLocation = '<Azure Region>'
 
 #Provide the name of the image.
@@ -54,7 +56,7 @@ $osType = '<OS Type>'
 # You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
 Login-AzureRmAccount
 
-# Set the context to the subscription Id where Snapshot is created
+# Set the context to the target subscription Id where image will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 
 #Step 1: Create Managed Disk in the target subscription (subscription 2) using the VHD file in the source subscription
