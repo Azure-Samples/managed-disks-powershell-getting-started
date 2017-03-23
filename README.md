@@ -14,7 +14,7 @@ These samples demonstrate how to get started with Azure PowerShell to perform va
 ## Samples 
 
 + [Copy a snapshot to a GRS/RA-GRS Storage account for Disaster Recovery](CopySnapshotToStorageAccount.ps1)
-+ [Golden image scenario - Create an Image in a target subscription using a VHD file in a source subscription](CreateImageFromVHDInDifferentSubscription.ps1)
++ [Golden image scenario - Create an Image from a VHD file in a different subscription](CreateImageFromVHDInDifferentSubscription.ps1)
 
 ## Running samples
 
