@@ -32,7 +32,7 @@ $storageAccountName = "<Storage Account Name>"
 $storageContainerName = "<Storage Container Name>"
 
 #Provide the key of the storage account where you want to copy snapshot. 
-$storageAccountKey = 'Storage account key'
+$storageAccountKey = '<Storage account key>'
 
 #Provide the name of the VHD file to which snapshot will be copied.
 $destinationVHDFileName = "<VHD file name>"

@@ -2,11 +2,11 @@
 
 .DESCRIPTION
 
-This sample demonstrates how to enable golden image scenario using Managed Disks. It shows how to create an image using a VHD file in a different subscription than where VHD file is located. 
+This sample demonstrates how to enable golden image scenario using Managed Disks. It shows how to create an image using a generalized (sysprepped) VHD file in a different subscription than where VHD file is located. 
 
 Here are the high level steps:
 
-1. Create a managed disk in the target subscription (subscription 2) using a VHD file in the source subscription (subscription 1)
+1. Create a managed disk in the target subscription (subscription 2) using a generalized (sysprepped) VHD file in the source subscription (subscription 1)
 2. Create an image in the target subscription using the new managed disk created in the same subscription
 3. Delete the Managed Disk created in Step 1
 
@@ -20,12 +20,13 @@ Here are the high level steps:
 #>
 
 #Provide the subscription Id where snapshot is created
-$subscriptionId = "<Your SubscriptionId>"
+$subscriptionId = '<Your SubscriptionId>'
 
 #Provide the name of your resource group where snapshot is created
-$resourceGroupName ="<Your Resource Group Name>"
+$resourceGroupName ='<Your Resource Group Name>'
 
-#Provide the URI of the VHD file that will be used to create image in the target subscription
+#Provide the URI of the VHD file that will be used to create image in the target subscription. 
+#Ensure that the VHD file is generalized (sysprepped)
 # e.g. https://contosostorageaccount1.blob.core.windows.net/vhds/contoso-um-vm120170302230408.vhd 
 $vhdUri = 'https://<Storage Account Name>.blob.core.windows.net/<Container Name>/<VHD file name>' 
 
@@ -34,7 +35,7 @@ $vhdUri = 'https://<Storage Account Name>.blob.core.windows.net/<Container Name>
 $storageAccountResourceId = '/subscriptions/<Subscription Id>/resourceGroups/<Resource Group>/providers/Microsoft.Storage/storageAccounts/<Storage Account Name>'
 
 #Provide the name of the Managed Disk that will be created in the target subscription (subscription 2)
-$diskName = 'Disk Name'
+$diskName = '<Disk Name>'
 
 #Provide the size of the disks in GB. It should be greater than the VHD file size.
 $diskSize = '<Disk Size>'
@@ -47,7 +48,7 @@ $imageLocation = '<Azure Region>'
 $imageName = '<Image Name>'
 
 #Provide the OS type (Windows or Linux) of the image
-$osType = '<>'
+$osType = '<OS Type>'
 
 
 # You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
@@ -58,7 +59,7 @@ Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 
 #Step 1: Create Managed Disk in the target subscription (subscription 2) using the VHD file in the source subscription
 
-$diskConfig = New-AzureRmDiskConfig -AccountType StandardLRS -Location $imagelocation -CreateOption Import -SourceUri $vhdUri -StorageAccountId $storageId -DiskSizeGB $diskSize
+$diskConfig = New-AzureRmDiskConfig -AccountType StandardLRS -Location $imagelocation -CreateOption Import -SourceUri $vhdUri -StorageAccountId $storageAccountResourceId -DiskSizeGB $diskSize
 
 $osDisk = New-AzureRmDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName
 
