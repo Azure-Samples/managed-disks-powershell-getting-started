@@ -5,7 +5,7 @@ author: ramankum
 ---
 
 ## Introduction 
-These samples demonstrate how to get started with Azure PowerShell to perform various operations on Azure Managed Disks for common scenarios. To get started, click the scenario for which you want to perform these operations.
+These samples demonstrate how to get started with Azure PowerShell to perform various operations on Azure Managed Disks for common scenarios. Each sample respresents a scenario that you want to implement using Azure PowerShell and Managed Disks. 
 
 ## Prerequisites
 1. Install the latest version of [Azure PowerShell](http://go.microsoft.com/?linkid=9811175&clcid=0x409)
@@ -13,7 +13,8 @@ These samples demonstrate how to get started with Azure PowerShell to perform va
 
 ## Samples 
 
-+ [Copy a snapshot to a storage account](CopySnapshotToStorageAccount.ps1)
++ [Copy a snapshot to a GRS/RA-GRS Storage account for Disaster Recovery](CopySnapshotToStorageAccount.ps1)
++ [Golden image scenario - Create an Image in a target subscription using a VHD file in a source subscription](CreateImageFromVHDInDifferentSubscription.ps1)
 
 ## Running samples
 
