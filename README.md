@@ -13,8 +13,11 @@ These samples demonstrate how to get started with Azure PowerShell to perform va
 
 ## Samples 
 
-+ [Copy a snapshot to a GRS/RA-GRS Storage account for Disaster Recovery](CopySnapshotToStorageAccount.ps1)
-+ [Golden image scenario - Create an Image from a VHD file in a different subscription](CreateImageFromVHDInDifferentSubscription.ps1)
++ [Create a Managed OS Disk from a specialized VHD file](CreateManagedDiskFromVHD.ps1)
++ [Create a Managed data Disk from a VHD file](CreateManagedDiskFromVHD.ps1)
++ [Create a virtual machine by attaching an existing Managed Disk as OS Disk](CreateVmFromManagedOsDisk.ps1)
++ [Copy a Managed snapshot to a GRS/RA-GRS Storage account for Disaster Recovery](CopySnapshotToStorageAccount.ps1)
++ [Golden image scenario - Create a Managed Image from a VHD file in a different subscription](CreateImageFromVHDInDifferentSubscription.ps1)
 
 ## Running samples
 

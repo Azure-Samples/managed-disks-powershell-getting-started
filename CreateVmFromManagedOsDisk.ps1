@@ -2,7 +2,7 @@
 <#
 .DESCRIPTION
 
-This sample demonstrates how to create a virtual machine by attaching an already created Managed Disk as OS Disk.
+This sample demonstrates how to create a virtual machine by attaching an existing Managed Disk as OS Disk.
 
 
 .NOTES
