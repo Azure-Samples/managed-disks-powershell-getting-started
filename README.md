@@ -5,17 +5,15 @@ author: ramankum
 ---
 
 ## Introduction 
-These samples demonstrate how to get started with Azure PowerShell to perform various operations Azure Managed Disks. We have listed down common scenarios for which you want to perform these operations.
+These samples demonstrate how to get started with Azure PowerShell to perform various operations on Azure Managed Disks for common scenarios. To get started, click the scenario for which you want to perform these operations.
 
 ## Prerequisites
 1. Install the latest version of [Azure PowerShell](http://go.microsoft.com/?linkid=9811175&clcid=0x409)
 2. A Microsoft Azure subscription. If you don't have a Microsoft Azure subscription you can get a FREE trial account [here](http://go.microsoft.com/fwlink/?LinkId=330212)
 
-## Scenarios 
+## Samples 
 
-+ Create a VM by attaching an existing Managed Disks
-+ Create a VM from a managed Snapshots
-+ Copy a snapshot to a storage account
++ [Copy a snapshot to a storage account](CopySnapshotToStorageAccount.ps1)
 
 ## Running samples
 
