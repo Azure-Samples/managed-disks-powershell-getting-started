@@ -1,5 +1,5 @@
 ---
-services: storage,virtual machines 
+services: storage,virtual-machines 
 platforms: powershell
 author: ramankum
 ---
