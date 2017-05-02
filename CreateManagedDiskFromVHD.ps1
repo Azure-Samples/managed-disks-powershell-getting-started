@@ -17,31 +17,38 @@ Create Managed Disks from VHD files in following scenarios:
 
 #>
 
+
+
+
+$resourceGroupName = "MDDemo"
+$accountName = "contosostracls"
+
+
 #Provide the subscription Id
-$subscriptionId = '<Your SubscriptionId>'
+$subscriptionId = '6492b1f7-f219-446b-b509-314e17e1efb0'
 
 #Provide the name of your resource group
-$resourceGroupName ='<Your Resource Group Name>'
+$resourceGroupName ='mddemo'
 
 #Provide the name of the Managed Disk
-$diskName = '<Disk Name>'
+$diskName = 'contosodiskacl1'
 
 #Provide the size of the disks in GB. It should be greater than the VHD file size.
-$diskSize = '<Disk Size>'
+$diskSize = '128'
 
 #Provide the URI of the VHD file that will be used to create Managed Disk. 
 # VHD file can be deleted as soon as Managed Disk is created.
 # e.g. https://contosostorageaccount1.blob.core.windows.net/vhds/contoso-um-vm120170302230408.vhd 
-$vhdUri = 'https://<Storage Account Name>.blob.core.windows.net/<Container Name>/<VHD file name>' 
+$vhdUri = 'https://contosostracls.blob.core.windows.net/vhds/contosovmacl20170411131615.vhd' 
 
 #Provide the storage type for the Managed Disk. PremiumLRS or StandardLRS.
-$accountType = '<Account Type>'
+$accountType = 'StandardLRS'
 
 #Provide the Azure location (e.g. westus) where Managed Disk will be located. 
 #The location should be same as the location of the storage account where VHD file is stored.
 #Get all the Azure location using command below:
 #Get-AzureRmLocation
-$location = '<Azure Region>'
+$location = 'westcentralus'
 
 # You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
 Login-AzureRmAccount
