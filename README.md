@@ -17,6 +17,8 @@ These samples demonstrate how to get started with Azure PowerShell to perform va
 + [Create a Managed data Disk from a VHD file](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateManagedDiskFromVHD.ps1)
 + [Create Managed Disks from a snapshot](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateManagedDiskFromSnapshots.ps1)
 + [Create a virtual machine by attaching an existing Managed Disk as OS Disk](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateVmFromManagedOsDisk.ps1)
++ [Create Managed Disks from VHD file in another subscription](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateManagedDisksFromVHDInAnotherSubscription.ps1)
++ [Create Snapshots from VHD file in another subscription](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateSnapshotsFromVHDInAnotherSubscription.ps1)
 + [Copy a Managed snapshot to a GRS/RA-GRS Storage account for Disaster Recovery](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CopySnapshotToStorageAccount.ps1)
 + [Golden image scenario - Create a Managed Image from a VHD file in a different subscription](https://github.com/Azure-Samples/managed-disks-powershell-getting-started/blob/master/CreateImageFromVHDInDifferentSubscription.ps1)
 
