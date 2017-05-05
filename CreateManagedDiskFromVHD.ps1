@@ -17,13 +17,6 @@ Create Managed Disks from VHD files in following scenarios:
 
 #>
 
-
-
-
-$resourceGroupName = "MDDemo"
-$accountName = "contosostracls"
-
-
 #Provide the subscription Id
 $subscriptionId = '6492b1f7-f219-446b-b509-314e17e1efb0'
 
