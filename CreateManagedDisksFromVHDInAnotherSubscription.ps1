@@ -2,7 +2,11 @@
 <#
 .DESCRIPTION
 
+<<<<<<< HEAD
 This sample demonstrates how to create Managed Disks from VHD in different subscription.
+=======
+This sample demonstrates how to create Managed Disks from a VHD file in another subscription.
+>>>>>>> 517d630fb7e1508a6cedb20034f4033c1f05efd2
  
 .NOTES
 
