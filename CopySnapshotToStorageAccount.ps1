@@ -12,34 +12,30 @@ This sample demonstrate how to generate SAS URI for a managed snapshot and use i
 
 #>
 
-#Provide the subscription Id where snapshot is created
-$subscriptionId = "<Your SubscriptionId>"
+#Provide the subscription Id of the subscription where snapshot is created
+$subscriptionId = "yourSubscriptionId"
 
 #Provide the name of your resource group where snapshot is created
-$resourceGroupName ="<Your Resource Group Name>"
+$resourceGroupName ="yourResourceGroupName"
 
 #Provide the snapshot name 
-$snapshotName = "<You snapshot name>"
+$snapshotName = "yourSnapshotName"
 
 #Provide Shared Access Signature (SAS) expiry duration in seconds e.g. 3600.
 #Know more about SAS here: https://docs.microsoft.com/en-us/azure/storage/storage-dotnet-shared-access-signature-part-1
-$sasExpiryDuration = "<SAS Expiry Duration>"
+$sasExpiryDuration = "3600"
 
 #Provide storage account name where you want to copy the snapshot. 
-$storageAccountName = "<Storage Account Name>"
+$storageAccountName = "yourstorageaccountName"
 
 #Name of the storage container where the downloaded snapshot will be stored
-$storageContainerName = "<Storage Container Name>"
+$storageContainerName = "yourstoragecontainername"
 
 #Provide the key of the storage account where you want to copy snapshot. 
-$storageAccountKey = '<Storage account key>'
+$storageAccountKey = 'yourStorageAccountKey'
 
 #Provide the name of the VHD file to which snapshot will be copied.
-$destinationVHDFileName = "<VHD file name>"
-
-
-# You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
-Login-AzureRmAccount
+$destinationVHDFileName = "yourvhdfilename"
 
 
 # Set the context to the subscription Id where Snapshot is created

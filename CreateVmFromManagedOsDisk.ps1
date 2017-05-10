@@ -11,49 +11,32 @@ This sample demonstrates how to create a virtual machine by attaching an existin
 2. Provide the appropriate values for each variable. Note: The angled brackets should not be included in the values you provide.
 
 #>
-
 #Provide the subscription Id
-$subscriptionId = '<Subscription Id>'
+$subscriptionId = 'yourSubscriptionId'
 
 #Provide the name of your resource group
-$resourceGroupName ='<Resource Group Name>'
+$resourceGroupName ='yourResourceGroupName'
 
 #Provide the name of the Managed Disk
-$diskName = '<Managed Disk Name>'
-
-#Provide the size of the disks in GB. It should be greater than the VHD file size.
-$diskSize = '<Disk Size>'
-
-#Provide the storage type for Managed Disk. PremiumLRS or StandardLRS.
-$accountType = '<Storage Account Type>'
+$diskName = 'yourDiskName'
 
 #Provide the Azure region (e.g. westus) where virtual machine will be located.
 #This location should be same as the Managed Disk location 
 #Get all the Azure location using command below:
 #Get-AzureRmLocation
-$location = '<Azure Region>'
+$location = 'westus'
 
-#Provide the name of the virtual network where virtual machine will be created
-$virtualNetworkName = '<Azure Virtual Network>'
+#Provide the name of an existing virtual network where virtual machine will be created
+$virtualNetworkName = 'yourVirtualNetworkName'
 
 #Provide the name of the virtual machine
-$virtualMachineName = '<Virtual Machine Name>'
+$virtualMachineName = 'yourVirtualMachineName'
 
 #Provide the size of the virtual machine
 #e.g. Standard_DS3
 #Get all the vm sizes in a region using below script:
 #e.g. Get-AzureRmVMSize -Location westus
-$virtualMachineSize = '<Virtual Machine Size>'
-
-
-#Provide the admin user name that will be created on the created
-$adminUserName = "<Admin User Name>"
-
-#Provide the admin password 
-$adminPassword = "<Admin Password>" | ConvertTo-SecureString -AsPlainText -Force
-
-#You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
-Login-AzureRmAccount
+$virtualMachineSize = 'Standard_DS3'
 
 #Set the context to the subscription Id where Managed Disk will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
@@ -64,8 +47,8 @@ $disk =  Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskNa
 #Initialize virtual machine configuration
 $VirtualMachine = New-AzureRmVMConfig -VMName $virtualMachineName -VMSize $virtualMachineSize
 
-#Use the Managed Disk Resource Id to attach it to the virtual machine
-$VirtualMachine = Set-AzureRmVMOSDisk -VM $VirtualMachine -ManagedDiskId $disk.Id -StorageAccountType $accountType -DiskSizeInGB $diskSize -CreateOption Attach -Windows
+#Use the Managed Disk Resource Id to attach it to the virtual machine. Please change the OS type to linux if OS disk has linux OS
+$VirtualMachine = Set-AzureRmVMOSDisk -VM $VirtualMachine -ManagedDiskId $disk.Id -CreateOption Attach -Windows
 
 #Create a public IP for the VM  
 $publicIp = New-AzureRmPublicIpAddress -Name ($VirtualMachineName.ToLower()+'_ip') -ResourceGroupName $resourceGroupName -Location $location -AllocationMethod Dynamic

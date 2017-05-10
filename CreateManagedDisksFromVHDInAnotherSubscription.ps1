@@ -2,7 +2,7 @@
 <#
 .DESCRIPTION
 
-This sample demonstrates how to create Managed Disks .
+This sample demonstrates how to create Managed Disks from VHD in different subscription.
  
 .NOTES
 
@@ -12,13 +12,13 @@ This sample demonstrates how to create Managed Disks .
 #>
 
 #Provide the subscription Id where Managed Disks will be created
-$subscriptionId = 'dd80b94e-0463-4a65-8d04-c94f403879dc'
+$subscriptionId = 'yourSubscriptionId'
 
 #Provide the name of your resource group where Managed Disks will be created. 
-$resourceGroupName ='MDDemo'
+$resourceGroupName ='yourResourceGroupName'
 
 #Provide the name of the Managed Disk
-$diskName = 'Conotoso_OSDisk_2'
+$diskName = 'yourDiskName'
 
 #Provide the size of the disks in GB. It should be greater than the VHD file size.
 $diskSize = '128'
@@ -35,19 +35,15 @@ $location = 'westus'
 #Provide the URI of the VHD file (page blob) in a storage account. Please not that this is NOT the SAS URI of the storage container where VHD file is stored. 
 #e.g. https://contosostorageaccount1.blob.core.windows.net/vhds/contosovhd123.vhd
 #Note: VHD file can be deleted as soon as Managed Disk is created.
-$sourceVHDURI = 'https://contosostorageaccount1.blob.core.windows.net/vhds/contoso-um-vm120170302230408.vhd'
+$sourceVHDURI = 'https://contosostorageaccount1.blob.core.windows.net/vhds/contosovhd123.vhd'
 
-#Provide the resource Id of the storage account where VHD file is stored. 
-#e.g. /subscriptions/6492b1f7-f219-446b-b509-314e17e1efb0/resourceGroups/MDDemo/providers/Microsoft.Storage/storageAccounts/contosostorageaccount1
-$storageAccountId = '/subscriptions/6492b1f7-f219-446b-b509-314e17e1efb0/resourceGroups/MDDemo/providers/Microsoft.Storage/storageAccounts/contosostorageaccount1'
-
-#You will be prompted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
-Login-AzureRmAccount
+#Provide the resource Id of the storage account where VHD file is stored.
+#e.g. /subscriptions/6472s1g8-h217-446b-b509-314e17e1efb0/resourceGroups/MDDemo/providers/Microsoft.Storage/storageAccounts/contosostorageaccount
+$storageAccountId = '/subscriptions/yourSubscriptionId/resourceGroups/yourResourceGroupName/providers/Microsoft.Storage/storageAccounts/yourStorageAccountName'
 
 #Set the context to the subscription Id where Managed Disk will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 
- 
 $diskConfig = New-AzureRmDiskConfig -AccountType $storageType -Location $location -CreateOption Import -StorageAccountId $storageAccountId -SourceUri $sourceVHDURI
  
 New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskName

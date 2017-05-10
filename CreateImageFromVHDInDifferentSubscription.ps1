@@ -20,41 +20,37 @@ Here are the high level steps:
 #>
 
 #Provide the subscription Id
-$subscriptionId = '<Your SubscriptionId>'
+$subscriptionId = 'yourSubscriptionId'
 
 #Provide the name of your resource group
-$resourceGroupName ='<Your Resource Group Name>'
+$resourceGroupName ='yourResourceGroupName'
 
 #Provide the URI of the VHD file that will be used to create image in the target subscription. 
 #Ensure that the VHD file is generalized (sysprepped)
 # e.g. https://contosostorageaccount1.blob.core.windows.net/vhds/contoso-um-vm120170302230408.vhd 
-$vhdUri = 'https://<Storage Account Name>.blob.core.windows.net/<Container Name>/<VHD file name>' 
+$vhdUri = 'https://yourStorageAccountName.blob.core.windows.net/yourContainerName/yourVHDName.vhd' 
 
 #Provide the Resource Id of the storage account where the VHD file is stored in the source subscription
 # e.g. /subscriptions/6492b1f7-f219-446b-b509-314e17e1efb0/resourceGroups/MDDemo/providers/Microsoft.Storage/storageAccounts/contosostorageaccount1
-$storageAccountResourceId = '/subscriptions/<Subscription Id>/resourceGroups/<Resource Group>/providers/Microsoft.Storage/storageAccounts/<Storage Account Name>'
+$storageAccountResourceId = '/subscriptions/yourSubscriptionId/resourceGroups/yourResourceGroupName/providers/Microsoft.Storage/storageAccounts/yourStorageAccount'
 
 #Provide the name of the Managed Disk that will be created in the target subscription (subscription 2)
-$diskName = '<Disk Name>'
+$diskName = 'yourDiskName'
 
 #Provide the size of the disks in GB. It should be greater than the VHD file size.
-$diskSize = '<Disk Size>'
+$diskSize = '128'
 
 #Provide the Azure location (e.g. westus) where Image will be located. 
 #The location should be same as the location of the storage account where VHD file is stored.
 #Get all the Azure location using command below:
 #Get-AzureRmLocation
-$imageLocation = '<Azure Region>'
+$imageLocation = 'westus'
 
 #Provide the name of the image.
-$imageName = '<Image Name>'
+$imageName = 'yourImageName'
 
 #Provide the OS type (Windows or Linux) of the image
-$osType = '<OS Type>'
-
-
-# You will be promopted to enter the email address and password associated with your account. Azure will authenticate and saves the credential information, and then close the window. 
-Login-AzureRmAccount
+$osType = 'windows'
 
 # Set the context to the target subscription Id where image will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
