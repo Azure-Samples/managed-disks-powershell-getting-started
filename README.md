@@ -1,7 +1,7 @@
 ---
 services: storage,virtual-machines 
 platforms: powershell
-author: ramankum
+author: ramankumarlive
 ---
 
 ## Introduction 
