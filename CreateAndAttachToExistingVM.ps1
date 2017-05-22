@@ -4,6 +4,8 @@
 
 This script creates and attaches managed disks to existing virtual machines in the format of (vmname-$number) such as windowsvm01-0 for LUN 1
 
+Please note that your VM size dictates how many disks can be attached -- Update-AzureRmVM will error if you attempt to attach too many disks to a VM
+
 #>
 
 #Provide the subscription Id
@@ -29,6 +31,8 @@ $diskSize = 1023
 
 # Which caching type do you want, Options are: (None, ReadOnly, ReadWrite)
 $diskCache = "ReadWrite"
+
+Select-AzureRmSubscription -SubscriptionId $subscriptionId
 
 # Do the work
 For ($i=0; $i -lt $diskNum; $i++) {
