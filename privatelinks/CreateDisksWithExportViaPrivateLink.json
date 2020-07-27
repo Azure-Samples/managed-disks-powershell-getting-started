@@ -20,7 +20,7 @@
       },
       "region": {
         "type": "string",
-        "defaultValue": "north"
+        "defaultValue": "northcentralus"
       }
     },
     
@@ -33,12 +33,10 @@
         "tags": {},
         "properties": {
           "creationData": {
-            "createOption": "Copy",
-            "sourceResourceId":"[parameters('sourceResourceId')]"
+            "createOption": "Empty"
           },
           "networkAccessPolicy": "[parameters('networkAccessPolicy')]",
-          "diskAccessId": "[parameters('diskAccessId')]",
-          "incremental": "[parameters('Incremental')]"
+          "diskAccessId": "[parameters('diskAccessId')]"
       }
       }
     ]
