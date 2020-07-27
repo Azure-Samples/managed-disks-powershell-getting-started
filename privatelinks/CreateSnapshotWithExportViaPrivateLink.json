@@ -1,0 +1,52 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "snapshotName": {
+        "type": "string"
+      },
+      "sourceResourceId": {
+        "type": "string"
+      },
+      "diskAccessId": {
+        "type": "string",
+        "defaultValue": "/subscriptions/0f5f616b-195b-4985-8799-c6e4bda8b7ea/resourceGroups/rg8ab28563-233b-4081-838f-f5eb34f66640/providers/Microsoft.Compute/diskaccesses/myDiskAccessForPrivateLinks"
+      },
+      "Incremental": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "networkAccessPolicy": {
+        "type": "string",
+        "defaultValue": "AllowPrivate",
+        "allowedValues": [
+        "AllowAll",
+        "DenyAll",
+        "AllowPrivate"
+      ]
+      },
+      "region": {
+        "type": "string",
+        "defaultValue": "CentralUSEUAP"
+      }
+    },
+    
+    "resources": [
+        {
+        "name": "[parameters('snapshotName')]",
+        "type": "Microsoft.Compute/snapshots",
+        "apiVersion": "2020-05-01",
+        "location":"[parameters('region')]",
+        "tags": {},
+        "properties": {
+          "creationData": {
+            "createOption": "Copy",
+            "sourceResourceId":"[parameters('sourceResourceId')]"
+          },
+          "networkAccessPolicy": "[parameters('networkAccessPolicy')]",
+          "diskAccessId": "[parameters('diskAccessId')]",
+          "incremental": "[parameters('Incremental')]"
+      }
+      }
+    ]
+  }
