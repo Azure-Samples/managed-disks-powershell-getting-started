@@ -27,7 +27,7 @@
       },
       "region": {
         "type": "string",
-        "defaultValue": "CentralUSEUAP"
+        "defaultValue": "northcentralus"
       }
     },
     
