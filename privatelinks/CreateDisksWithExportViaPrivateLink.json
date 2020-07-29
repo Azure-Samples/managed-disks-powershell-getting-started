@@ -5,6 +5,14 @@
       "diskName": {
         "type": "string"
       },
+      "diskSkuName": {
+        "type": "string",
+        "defaultValue": "Standard_LRS"
+      },
+      "diskSizeGB": {
+        "type": "string",
+        "defaultValue": "128"
+      },
       "diskAccessId": {
         "type": "string",
         "defaultValue": "/subscriptions/0f5f616b-195b-4985-8799-c6e4bda8b7ea/resourceGroups/rg8ab28563-233b-4081-838f-f5eb34f66640/providers/Microsoft.Compute/diskaccesses/myDiskAccessForPrivateLinks"
@@ -31,10 +39,14 @@
         "apiVersion": "2020-05-01",
         "location":"[parameters('region')]",
         "tags": {},
+        "sku": {
+          "name": "[parameters('diskSkuName')]"
+        },
         "properties": {
           "creationData": {
             "createOption": "Empty"
           },
+          "diskSizeGB":  "[parameters('diskSizeGB')]",
           "networkAccessPolicy": "[parameters('networkAccessPolicy')]",
           "diskAccessId": "[parameters('diskAccessId')]"
       }
