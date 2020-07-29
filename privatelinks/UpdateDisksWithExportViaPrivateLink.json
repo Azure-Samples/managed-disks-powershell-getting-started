@@ -32,6 +32,9 @@
         "location":"[parameters('region')]",
         "tags": {},
         "properties": {
+          "creationData": {
+                    "createOption": "Empty"
+                },
           "networkAccessPolicy": "[parameters('networkAccessPolicy')]",
           "diskAccessId": "[parameters('diskAccessId')]"
       }
