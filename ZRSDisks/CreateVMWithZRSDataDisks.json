@@ -25,7 +25,7 @@
     },
     "osDiskType": {
       "type": "string",
-      "defaultValue": "StandardSSD_LRS",
+      "defaultValue": "StandardSSD_ZRS",
       "allowedValues": [
         "Standard_LRS",
         "Premium_LRS",
@@ -36,7 +36,7 @@
     },
     "dataDiskType": {
       "type": "string",
-      "defaultValue": "StandardSSD_LRS",
+      "defaultValue": "Premium_ZRS",
       "allowedValues": [
         "Standard_LRS",
         "Premium_LRS",
