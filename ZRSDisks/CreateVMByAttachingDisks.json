@@ -1,0 +1,194 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 8,
+            "metadata": {
+                "description": "Naming prefix for each new resource created. 3-char min, 8-char max, lowercase alphanumeric"
+            }
+        },
+        "vmSize": {
+            "type": "string",
+            "metadata": {
+                "description": "Size of the cluster node VMs to be created"
+            },
+            "defaultValue": "Standard_D2s_v3"
+        },
+        "enableAcceleratedNetworking": {
+            "type": "bool",
+            "metadata": {
+                "description": "Enable (true) or Disable (false) Accelerated Networking - if enabling, make sure you are selecting appropriate VM Size and Region"
+            },
+            "defaultValue": false
+        },
+        "osDiskARMUri": {
+          "type": "string",
+          "metadata": {
+                "description": "Azure resource manager resource URI of an existing OS disk. A sample URI is /subscriptions/yourSubscriptionId/resourceGroups/yourResourceGroupName/providers/Microsoft.Compute/disks/yourDiskName"
+            }
+        },
+        "dataDiskARMUri": {
+          "type": "string",
+          "metadata": {
+                "description": "Azure resource manager resource URI of an existing data disk. A sample URI is /subscriptions/yourSubscriptionId/resourceGroups/yourResourceGroupName/providers/Microsoft.Compute/disks/yourDiskName"
+            }
+        },
+        "osType": {
+          "type": "string",
+          "defaultValue": "Windows",
+          "allowedValues": [
+            "Windows",
+            "Linux"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "defaultValue": "eastus2euap"
+        }
+    },
+    "variables": {        
+        "virtualNetworkName": "[concat(toLower(parameters('vmName')),'-vnet')]",
+        "subnetName": "[concat(toLower(parameters('vmName')),'-subnet')]",
+        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+        "addressPrefix": "10.2.3.0/24",
+        "subnetPrefix": "10.2.3.0/24"
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-01-01",
+            "name": "[variables('virtualNetworkName')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[parameters('region')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('addressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('subnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('subnetPrefix')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+          "type": "Microsoft.Network/networkSecurityGroups",
+          "apiVersion": "2020-06-01",
+          "name": "[concat(parameters('vmName'), 'nsg')]",
+          "location": "[parameters('region')]",
+          "properties": {
+            "securityRules": [
+              {
+                  "name": "Port_3389",
+                  "properties": {
+                      "protocol": "TCP",
+                      "sourcePortRange": "*",
+                      "destinationPortRange": "3389",
+                      "sourceAddressPrefix": "*",
+                      "destinationAddressPrefix": "*",
+                      "access": "Allow",
+                      "priority": 100,
+                      "direction": "Inbound",
+                      "sourcePortRanges": [],
+                      "destinationPortRanges": [],
+                      "sourceAddressPrefixes": [],
+                      "destinationAddressPrefixes": []
+                  }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Microsoft.Network/publicIPAddresses",
+          "name": "[concat(parameters('vmName'), 'ip')]",
+          "location": "[parameters('region')]",
+          "apiVersion": "2020-05-01",
+          "sku": {
+            "name": "Standard"
+          },
+          "properties": {
+            "publicIPAllocationMethod": "Static"
+          }
+        },
+        {
+            "name": "[concat(parameters('vmName'), '-nic')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "location": "[parameters('region')]",
+            "dependsOn": [
+               "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('vmName'), 'ip'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('vmName'), 'nsg'))]"
+            ],
+            "apiVersion": "2019-11-01",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig0",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                            "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('vmName'), 'ip'))]"  
+                            },
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            }
+                        }
+                    }
+                ],
+                "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('vmName'), 'nsg'))]"
+                }
+            }
+        }
+        ,
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2020-12-01",
+            "name": "[parameters('vmName')]",
+            "location": "[parameters('region')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vmName'), '-nic'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "[parameters('osType')]",
+                        "caching": "ReadWrite",
+                        "createOption": "Attach",
+                        "managedDisk": {
+                          "id": "[parameters('osDiskARMuri')]"
+                        }
+                    },
+                    "dataDisks": [
+                                    {
+                                        "lun": 0,
+                                        "createOption": "attach",
+                                        "managedDisk": {
+                                            "id": "[parameters('dataDiskARMuri')]"
+                                        }
+                                    }
+                                ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vmName'), '-nic'))]"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {
+    }
+}
