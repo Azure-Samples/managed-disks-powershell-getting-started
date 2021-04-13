@@ -13,7 +13,7 @@
     },
     "virtualMachineSize": {
       "type": "string",
-      "defaultValue": "Standard_D2s_v3"
+      "defaultValue": "Standard_D4s_v3"
     },
     "osType": {
       "type": "string",
@@ -229,7 +229,7 @@
           "vmSize": "[parameters('virtualMachineSize')]"
         },
         "osProfile": {
-          "computerName": "[uniqueString(parameters('resourceName'))]",
+          "computerName": "[parameters('resourceName')]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
