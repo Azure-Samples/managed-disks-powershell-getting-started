@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "defaultValue": "isnapshot1",
+            "type": "String"
+        },
+        "sourceSnapshotResourceId": {
+            "defaultValue": "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/crossregioncopy/providers/Microsoft.Compute/snapshots/mysourceisnapshot1",
+            "type": "String"
+        },
+        "skuName": {
+            "defaultValue": "Standard_LRS",
+            "type": "String"
+        },
+        "targetRegion": {
+            "defaultValue": "CentralUSEUAP",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/snapshots",
+            "sku": {
+                "name": "[parameters('skuName')]",
+                "tier": "Standard"
+            },
+            "name": "[parameters('name')]",
+            "apiVersion": "2020-12-01",
+            "location": "[parameters('targetRegion')]",
+            "scale": null,
+            "properties": {
+                "creationData": {
+                    "createOption": "Clone",
+                    "sourceResourceId": "[parameters('sourceSnapshotResourceId')]"
+                },
+                "incremental": true
+            },
+            "dependsOn": []
+        }
+    ]
+}
