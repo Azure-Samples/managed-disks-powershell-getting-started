@@ -4,13 +4,13 @@
     "parameters": {
       "diskName": {
         "type": "string",
-        "defaultValue": "manageddiskwithcmk1"
+        "defaultValue": "mymanageddisk1"
       },
       "diskSkuName": {
         "type": "string",
         "defaultValue": "Premium_LRS"
       },
-      "dataDiskSizeInGb": {
+      "diskSizeInGb": {
         "type": "string",
         "defaultValue": "30"
       },
@@ -34,7 +34,7 @@
           "creationData": {
             "createOption": "Empty"
           },
-          "diskSizeGB": "[parameters('dataDiskSizeInGb')]"
+          "diskSizeGB": "[parameters('diskSizeInGb')]"
       }
       }
     ]
