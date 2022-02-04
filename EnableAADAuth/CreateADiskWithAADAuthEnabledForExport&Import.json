@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "diskName": {
+            "type": "String",
+            "metadata": {
+                "description": "The name of the disk"
+            }
+        },
+        "stampName": {
+            "type": "String",
+            "metadata": {
+                "description": "The name of the stamp"
+            }
+        },
+        "location": {
+            "defaultValue": "eastus",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "diskSizeInGB": {
+            "defaultValue": 4,
+            "type": "Int",
+            "metadata": {
+                "description": "Data Disk size in GiB."
+            }
+        },
+        "accountType": {
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "StandardSSD_LRS",
+                "Premium_LRS"
+            ],
+            "type": "string",
+            "metadata": {
+                "description": "The account type of the managed disks"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/disks",
+            "apiVersion": "2021-08-01",
+            "name": "[parameters('diskName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('accountType')]"
+            },
+            "properties": {
+                "creationData": {
+                    "createOption": "Empty",
+                    "StorageStampName": "[parameters('stampName')]"
+                },
+                "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
+                "dataAccessAuthMode": "AzureActiveDirectory"
+            }
+        }
+    ]
+}
