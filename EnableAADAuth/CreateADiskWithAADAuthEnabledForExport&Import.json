@@ -8,12 +8,6 @@
                 "description": "The name of the disk"
             }
         },
-        "stampName": {
-            "type": "String",
-            "metadata": {
-                "description": "The name of the stamp"
-            }
-        },
         "location": {
             "defaultValue": "eastus",
             "type": "String",
