@@ -12,7 +12,7 @@
             "defaultValue": "eastus",
             "type": "String",
             "metadata": {
-                "description": "Location for all resources."
+                "description": "Azure location (region) where disk is created"
             }
         },
         "diskSizeInGB": {
@@ -22,7 +22,7 @@
                 "description": "Data Disk size in GiB."
             }
         },
-        "accountType": {
+        "diskSku": {
             "defaultValue": "Standard_LRS",
             "allowedValues": [
                 "Standard_LRS",
@@ -33,6 +33,17 @@
             "metadata": {
                 "description": "The account type of the managed disks"
             }
+        },
+        "dataAccessAuthMode": {
+            "defaultValue": "AzureActiveDirectory",
+            "allowedValues": [
+                "AzureActiveDirectory",
+                "None"
+            ],
+            "type": "string",
+            "metadata": {
+                "description": "The authentication mechanism used to authenticate a user while downloading/uploading data via SAS URI when the disk is not attached to a running VM"
+            }
         }
     },
     "resources": [
@@ -41,7 +52,7 @@
             "apiVersion": "2021-08-01",
             "name": "[parameters('diskName')]",
             "location": "[parameters('location')]",
-            "sku": {
+            "diskSku": {
                 "name": "[parameters('accountType')]"
             },
             "properties": {
