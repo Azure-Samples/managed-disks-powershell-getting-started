@@ -57,8 +57,7 @@
             },
             "properties": {
                 "creationData": {
-                    "createOption": "Empty",
-                    "StorageStampName": "[parameters('stampName')]"
+                    "createOption": "Empty"
                 },
                 "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
                 "dataAccessAuthMode": "AzureActiveDirectory"
