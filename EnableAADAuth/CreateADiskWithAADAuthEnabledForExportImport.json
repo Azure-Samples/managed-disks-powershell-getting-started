@@ -53,13 +53,13 @@
             "name": "[parameters('diskName')]",
             "location": "[parameters('location')]",
             "diskSku": {
-                "name": "[parameters('accountType')]"
+                "name": "[parameters('diskSku')]"
             },
             "properties": {
                 "creationData": {
                     "createOption": "Empty"
                 },
-                "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
+                "diskSizeGB": "[parameters('diskSizeInGB')]",
                 "dataAccessAuthMode": "AzureActiveDirectory"
             }
         }
