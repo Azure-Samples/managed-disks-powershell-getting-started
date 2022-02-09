@@ -60,7 +60,7 @@
                     "createOption": "Empty"
                 },
                 "diskSizeGB": "[parameters('diskSizeInGB')]",
-                "dataAccessAuthMode": "AzureActiveDirectory"
+                "dataAccessAuthMode": "[parameters('dataAccessAuthMode')]"
             }
         }
     ]
