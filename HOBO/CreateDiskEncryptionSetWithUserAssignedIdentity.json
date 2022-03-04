@@ -1,0 +1,48 @@
+  {
+   "$schema":"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+   "contentVersion":"1.0.0.0",
+   "parameters":{  
+      "region":{  
+        "type":"string",
+		    "defaultValue":"CentralUSEUAP"
+      },
+    "diskEncryptionSetName": {
+      "type": "string",
+      "defaultValue": "myDESForDoubleEncryption "
+    },
+    "keyVaultId": {
+      "type": "string",
+      "defaultValue": "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/CMKTesting/providers/Microsoft.KeyVault/vaults/MDCMKTesting"
+    },
+    "keyVaultKeyUrl":{  
+         "type":"string",
+         "defaultValue": "https://mdcmktesting.vault.azure.net/keys/myKeyName/403445136dee4a57af7068cab08f7d42"
+      },
+    "encryptionType":{  
+         "type":"string",
+         "defaultValue": "EncryptionAtRestWithPlatformAndCustomerKeys",
+         "allowedValues": ["EncryptionAtRestWithPlatformAndCustomerKeys", "EncryptionAtRestWithCustomerKey"]
+      }
+   },
+   "resources":[  
+      {  
+         "apiVersion":"2020-05-01",
+         "type":"Microsoft.Compute/diskEncryptionSets",
+         "name":"[parameters('diskEncryptionSetName')]",
+        "location": "[parameters('region')]",
+        "identity": { 
+          "type": "SystemAssigned"
+        },
+         "properties":{  
+            "activeKey":{
+              "sourceVault": {
+                "id": "[parameters('keyVaultId')]"
+              },
+              "keyUrl": "[parameters('keyVaultKeyUrl')]"
+            },
+            "encryptionType":"[parameters('encryptionType')]"
+
+         }
+      }
+   ]
+}
