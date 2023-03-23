@@ -35,7 +35,7 @@ $diskSize = '128'
 $vhdUri = 'https://contosoststorageaccount1.blob.core.windows.net/vhds/contosovhd123.vhd' 
 
 #Provide the storage type for the Managed Disk. PremiumLRS or StandardLRS.
-$accountType = 'PremiumLRS'
+$sku = 'PremiumLRS'
 
 #Provide the Azure location (e.g. westus) where Managed Disk will be located. 
 #The location should be same as the location of the storage account where VHD file is stored.
@@ -44,14 +44,19 @@ $accountType = 'PremiumLRS'
 $location = 'westus'
 
 #Set the context to the subscription Id where Managed Disk will be created
-Select-AzureRmSubscription -SubscriptionId $SubscriptionId
+Set-AzContext -Subscription $subscriptionId
 
-$diskConfig = New-AzureRmDiskConfig -AccountType $accountType  -Location $location -DiskSizeGB $diskSize -SourceUri $vhdUri -CreateOption Import
+#If you're creating an OS disk, add the following lines
+#Acceptable values are either Windows or Linux
+#$OSType = 'yourOSType'
+#Acceptable values are either V1 or V2
+#$HyperVGeneration = 'yourHyperVGen'
+
+#If you're creating an OS disk, add -HyperVGeneration and -OSType parameters
+$diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize -SourceUri $vhdUri -CreateOption 'FromImage'
 
 #Create Managed disk
-New-AzureRmDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName
-
-
+New-AzDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName
 
 
 
