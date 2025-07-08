@@ -1,0 +1,81 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "diskName": {
+            "type": "string",
+            "defaultValue": "mypremiumv2datadisk1"
+        },
+        "diskSkuName": {
+            "type": "string",
+            "defaultValue": "Premiumv2_LRS"
+        },
+        "dataDiskSizeInGB": {
+            "defaultValue": 1048,
+            "type": "Int",
+            "metadata": {
+                "description": "Data Disk size in GiB."
+            }
+        },
+        "diskIOPSReadWrite": {
+            "defaultValue": 51200,
+            "type": "Int",
+            "metadata": {
+                "description": "Data Disk IOPS value representing the maximum IOPS that the disk can achieve."
+            }
+        },
+        "diskMbpsReadWrite": {
+            "defaultValue": 768,
+            "type": "Int",
+            "metadata": {
+                "description": "Data Disk MBps value representing the maximum throughput that the disk can achieve."
+            }
+        },
+        "logicalSectorSize": {
+            "defaultValue": 4096,
+            "type": "Int",
+            "metadata": {
+                "descriptions": "Logical sector size in bytes for Premium v2 disk."
+            }
+        },
+        "zone": {
+            "type": "Int",
+            "defaultValue": 2,
+            "metadata": {
+                "description": "Availability Zone of the VM and the disk"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "USEast2EUAP"
+        },
+        "sourceSnapshotARMId": {
+            "type": "string",
+            "defaultValue": "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/ADAM-CANARY-TEST-RG/providers/Microsoft.Compute/snapshots/Adam-IA-Snapshot-test"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/disks",
+            "apiVersion": "2025-01-02",
+            "name": "[parameters('diskName')]",
+            "location": "[parameters('location')]",
+            "zones": [
+                "[parameters('zone')]"
+            ],
+            "sku": {
+                "name": "[parameters('diskSkuName')]"
+            },
+            "properties": {
+                "creationData": {
+                    "createOption": "Copy",
+                    "sourceResourceId": "[parameters('sourceSnapshotARMId')]",
+                    "logicalSectorSize": "[parameters('logicalSectorSize')]"
+                },
+                "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
+                "diskIOPSReadWrite": "[parameters('diskIOPSReadWrite')]",
+                "diskMBpsReadWrite": "[parameters('diskMBpsReadWrite')]"
+            }
+        }
+    ]
+}
