@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "snapshotName": {
+            "type": "String"
+        },
+        "location": {
+            "defaultValue": "eastus2euap",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "sourceUri": {
+            "defaultValue": "/subscriptions/83f51a68-e37f-4d9c-9583-ef4d0ba8a9b3/resourceGroups/cbn14a-ss-traffic/providers/Microsoft.Compute/disks/ss-4k-test-1-dataDisk0",
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/snapshots",
+            "apiVersion": "2025-01-02",
+            "name": "[parameters('snapshotName')]",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "properties": {
+                "creationData": {
+                    "createOption": "Copy",
+                    "sourceResourceId": "[parameters('sourceUri')]",
+                    "instantAccessDurationMinutes": 300 
+                },
+                "incremental": "true"
+            }
+        }
+    ]
+}
